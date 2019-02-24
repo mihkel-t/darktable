@@ -1559,6 +1559,7 @@ static gboolean dt_iop_tonecurve_draw(GtkWidget *widget, cairo_t *crf, gpointer 
         picker_scale(raw_max, picker_max);
 
         // scale conservatively to 100% of width:
+        // TODO/MdN: does this and following need _()
         snprintf(text, sizeof(text), "100.00 / 100.00 ( +100.00)");
         pango_layout_set_text(layout, text, -1);
         pango_layout_get_pixel_extents(layout, &ink, NULL);

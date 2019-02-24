@@ -1196,14 +1196,14 @@ void gui_init(struct dt_iop_module_t *self)
 
   /* density */
   g->scale1 = dt_bauhaus_slider_new_with_range(self, -8.0, 8.0, 0.1, p->density, 2);
-  dt_bauhaus_slider_set_format(g->scale1, "%.2fev");
+  dt_bauhaus_slider_set_format(g->scale1, _("%.2f EV"));
   dt_bauhaus_widget_set_label(g->scale1, NULL, _("density"));
   gtk_widget_set_tooltip_text(g->scale1, _("the density in EV for the filter"));
   g_signal_connect(G_OBJECT(g->scale1), "value-changed", G_CALLBACK(density_callback), self);
 
   /* compression */
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->compression, 0);
-  dt_bauhaus_slider_set_format(g->scale2, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale2, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->scale2, NULL, C_("graduated density", "compression"));
   /* xgettext:no-c-format */
   gtk_widget_set_tooltip_text(g->scale2, _("compression of graduation:\n0% = soft, 100% = hard"));
@@ -1212,7 +1212,7 @@ void gui_init(struct dt_iop_module_t *self)
   /* rotation */
   g->scale3 = dt_bauhaus_slider_new_with_range(self, -180, 180, 0.5, p->rotation, 2);
   dt_bauhaus_widget_set_label(g->scale3, NULL, _("rotation"));
-  dt_bauhaus_slider_set_format(g->scale3, "%.2f°");
+  dt_bauhaus_slider_set_format(g->scale3, _("%.2f°"));
   gtk_widget_set_tooltip_text(g->scale3, _("rotation of filter -180 to 180 degrees"));
   g_signal_connect(G_OBJECT(g->scale3), "value-changed", G_CALLBACK(rotation_callback), self);
 

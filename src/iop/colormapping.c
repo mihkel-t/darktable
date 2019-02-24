@@ -1138,14 +1138,14 @@ void gui_init(struct dt_iop_module_t *self)
   dt_bauhaus_widget_set_label(g->dominance, NULL, _("color dominance"));
   gtk_widget_set_tooltip_text(g->dominance, _("how clusters are mapped. low values: based on color "
                                               "proximity, high values: based on color dominance"));
-  dt_bauhaus_slider_set_format(g->dominance, "%.02f%%");
+  dt_bauhaus_slider_set_format(g->dominance, _("%.02f%%"));
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->dominance), TRUE, TRUE, 0);
   g_signal_connect(G_OBJECT(g->dominance), "value-changed", G_CALLBACK(dominance_changed), self);
 
   g->equalization = dt_bauhaus_slider_new_with_range(self, 0, 100.0, 2., p->equalization, 2);
   dt_bauhaus_widget_set_label(g->equalization, NULL, _("histogram equalization"));
   gtk_widget_set_tooltip_text(g->equalization, _("level of histogram equalization"));
-  dt_bauhaus_slider_set_format(g->equalization, "%.02f%%");
+  dt_bauhaus_slider_set_format(g->equalization, _("%.02f%%"));
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->equalization), TRUE, TRUE, 0);
   g_signal_connect(G_OBJECT(g->equalization), "value-changed", G_CALLBACK(equalization_changed), self);
 

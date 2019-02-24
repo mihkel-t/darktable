@@ -1424,14 +1424,14 @@ void gui_init(struct dt_iop_module_t *self)
 
   // Add opacity/scale sliders to table
   g->opacity = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->opacity, 0);
-  dt_bauhaus_slider_set_format(g->opacity, "%.f%%");
+  dt_bauhaus_slider_set_format(g->opacity, _("%.f%%"));
   dt_bauhaus_widget_set_label(g->opacity, NULL, _("opacity"));
   g->scale = dt_bauhaus_slider_new_with_range(self, 1.0, 100.0, 1.0, p->scale, 0);
   dt_bauhaus_slider_enable_soft_boundaries(g->scale, 1.0, 500.0);
-  dt_bauhaus_slider_set_format(g->scale, "%.f%%");
+  dt_bauhaus_slider_set_format(g->scale, _("%.f%%"));
   dt_bauhaus_widget_set_label(g->scale, NULL, C_("relative size", "scale"));
   g->rotate = dt_bauhaus_slider_new_with_range(self, -180.0, 180.0, 1.0, p->rotate, 2);
-  dt_bauhaus_slider_set_format(g->rotate, "%.02f°");
+  dt_bauhaus_slider_set_format(g->rotate, _("%.02f°"));
   dt_bauhaus_widget_set_label(g->rotate, NULL, _("rotation"));
   gtk_grid_attach(GTK_GRID(self->widget), g->opacity, 0, line++, 3, 1);
   gtk_grid_attach(GTK_GRID(self->widget), g->scale, 0, line++, 3, 1);

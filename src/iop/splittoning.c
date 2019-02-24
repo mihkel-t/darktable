@@ -642,7 +642,7 @@ void gui_init(struct dt_iop_module_t *self)
 
 
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->compress, 2);
-  dt_bauhaus_slider_set_format(g->scale2, "%.2f%%");
+  dt_bauhaus_slider_set_format(g->scale2, _("%.2f%%"));
   dt_bauhaus_widget_set_label(g->scale2, NULL, _("compress"));
   gtk_grid_attach(grid, g->scale2, 0, line++, 2, 1);
 

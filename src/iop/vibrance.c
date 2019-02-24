@@ -241,7 +241,7 @@ void gui_init(struct dt_iop_module_t *self)
 
   /* vibrance */
   g->amount_scale = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1, p->amount, 0);
-  dt_bauhaus_slider_set_format(g->amount_scale, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->amount_scale, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->amount_scale, NULL, _("vibrance"));
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->amount_scale), TRUE, TRUE, 0);
   gtk_widget_set_tooltip_text(g->amount_scale, _("the amount of vibrance"));

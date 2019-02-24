@@ -52,10 +52,10 @@ void init_presets(dt_iop_module_so_t *self)
 {
   DT_DEBUG_SQLITE3_EXEC(dt_database_get(darktable.db), "BEGIN", NULL, NULL, NULL);
 
-  dt_gui_presets_add_generic(_("fill-light 0.25EV with 4 zones"), self->op, self->version(),
+  dt_gui_presets_add_generic(_("fill-light 0.25 EV with 4 zones"), self->op, self->version(),
                              &(dt_iop_relight_params_t){ 0.25, 0.25, 4.0 }, sizeof(dt_iop_relight_params_t),
                              1);
-  dt_gui_presets_add_generic(_("fill-shadow -0.25EV with 4 zones"), self->op, self->version(),
+  dt_gui_presets_add_generic(_("fill-shadow -0.25 EV with 4 zones"), self->op, self->version(),
                              &(dt_iop_relight_params_t){ -0.25, 0.25, 4.0 }, sizeof(dt_iop_relight_params_t),
                              1);
 
@@ -329,13 +329,13 @@ void gui_init(struct dt_iop_module_t *self)
 
   /* exposure */
   g->scale1 = dt_bauhaus_slider_new_with_range(self, -2.0, 2.0, 0.05, p->ev, 2);
-  dt_bauhaus_slider_set_format(g->scale1, "%.2fEV");
+  dt_bauhaus_slider_set_format(g->scale1, _("%.2f EV"));
   dt_bauhaus_widget_set_label(g->scale1, NULL, C_("exposure correction", "exposure"));
   gtk_widget_set_tooltip_text(g->scale1, _("the fill-light in EV"));
   g_signal_connect(G_OBJECT(g->scale1), "value-changed", G_CALLBACK(ev_callback), self);
-  /* width*/
+  /* width */
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 2, 10, 0.5, p->width, 1);
-  dt_bauhaus_slider_set_format(g->scale2, "%.1f");
+  dt_bauhaus_slider_set_format(g->scale2, "%.1f"); // TODO/MdN: which unit is this?
   dt_bauhaus_widget_set_label(g->scale2, NULL, _("width"));
   /* xgettext:no-c-format */
   gtk_widget_set_tooltip_text(g->scale2, _("width of fill-light area defined in zones"));

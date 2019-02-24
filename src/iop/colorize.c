@@ -434,12 +434,12 @@ void gui_init(struct dt_iop_module_t *self)
 
   // Additional parameters
   g->scale1 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 0.1, p->lightness * 100.0, 2);
-  dt_bauhaus_slider_set_format(g->scale1, "%.2f%%");
+  dt_bauhaus_slider_set_format(g->scale1, _("%.2f%%"));
   dt_bauhaus_widget_set_label(g->scale1, NULL, _("lightness"));
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->scale1), TRUE, TRUE, 0);
 
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 0.1, p->source_lightness_mix, 2);
-  dt_bauhaus_slider_set_format(g->scale2, "%.2f%%");
+  dt_bauhaus_slider_set_format(g->scale2, _("%.2f%%"));
   dt_bauhaus_widget_set_label(g->scale2, NULL, _("source mix"));
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->scale2), TRUE, TRUE, 0);
 

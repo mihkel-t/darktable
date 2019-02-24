@@ -1102,7 +1102,7 @@ void gui_init(struct dt_iop_module_t *self)
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(vbox), TRUE, TRUE, 5);
 
   c->strength = dt_bauhaus_slider_new_with_range(self, -200, 200.0, 10.0, p->strength, 1);
-  dt_bauhaus_slider_set_format(c->strength, "%.01f%%");
+  dt_bauhaus_slider_set_format(c->strength, _("%.01f%%"));
   dt_bauhaus_widget_set_label(c->strength, NULL, _("mix"));
   gtk_box_pack_start(GTK_BOX(self->widget), c->strength, TRUE, TRUE, 0);
   gtk_widget_set_tooltip_text(c->strength, _("make effect stronger or weaker"));

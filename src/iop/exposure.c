@@ -880,14 +880,14 @@ void gui_init(struct dt_iop_module_t *self)
 
   g->exposure = dt_bauhaus_slider_new_with_range(self, -3.0, 3.0, .02, p->exposure, 3);
   gtk_widget_set_tooltip_text(g->exposure, _("adjust the exposure correction"));
-  dt_bauhaus_slider_set_format(g->exposure, "%.2fEV");
+  dt_bauhaus_slider_set_format(g->exposure, _("%.2f EV"));
   dt_bauhaus_widget_set_label(g->exposure, NULL, C_("exposure correction", "exposure"));
   dt_bauhaus_slider_enable_soft_boundaries(g->exposure, -18.0, 18.0);
   gtk_box_pack_start(GTK_BOX(vbox_manual), GTK_WIDGET(g->exposure), TRUE, TRUE, 0);
 
   g->autoexpp = dt_bauhaus_slider_new_with_range(self, 0.0, 0.2, .001, 0.01, 3);
   gtk_widget_set_tooltip_text(g->autoexpp, _("percentage of bright values clipped out, toggle color picker to activate"));
-  dt_bauhaus_slider_set_format(g->autoexpp, "%.3f%%");
+  dt_bauhaus_slider_set_format(g->autoexpp, _("%.3f%%"));
   dt_bauhaus_widget_set_label(g->autoexpp, NULL, _("clipping threshold"));
   dt_bauhaus_widget_set_quad_paint(g->autoexpp, dtgtk_cairo_paint_colorpicker, CPF_STYLE_FLAT | CPF_DO_NOT_USE_BORDER, NULL);
   dt_bauhaus_widget_set_quad_toggle(g->autoexpp, TRUE);
@@ -900,7 +900,7 @@ void gui_init(struct dt_iop_module_t *self)
 
   g->deflicker_percentile = dt_bauhaus_slider_new_with_range(self, 0, 100, 1.0, p->deflicker_percentile, 3);
   dt_bauhaus_widget_set_label(g->deflicker_percentile, NULL, _("percentile"));
-  dt_bauhaus_slider_set_format(g->deflicker_percentile, "%.2f%%");
+  dt_bauhaus_slider_set_format(g->deflicker_percentile, _("%.2f%%"));
   gtk_widget_set_tooltip_text(g->deflicker_percentile,
                               // xgettext:no-c-format
                               _("where in the histogram to meter for deflicking. E.g. 50% is median"));
@@ -909,7 +909,7 @@ void gui_init(struct dt_iop_module_t *self)
   g->deflicker_target_level
       = dt_bauhaus_slider_new_with_range(self, -18.0, 18.0, .01, p->deflicker_target_level, 3);
   dt_bauhaus_widget_set_label(g->deflicker_target_level, NULL, _("target level"));
-  dt_bauhaus_slider_set_format(g->deflicker_target_level, "%.2fEV");
+  dt_bauhaus_slider_set_format(g->deflicker_target_level, _("%.2f EV"));
   gtk_widget_set_tooltip_text(g->deflicker_target_level,
                               _("where to place the exposure level for processed pics, EV below overexposure."));
   gtk_box_pack_start(GTK_BOX(vbox_deflicker), GTK_WIDGET(g->deflicker_target_level), TRUE, TRUE, 0);

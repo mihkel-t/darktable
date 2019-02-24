@@ -835,9 +835,9 @@ void gui_init(struct dt_iop_module_t *self)
   dt_bauhaus_slider_set_format(g->highlights, "%.02f");
   dt_bauhaus_slider_set_format(g->whitepoint, "%.02f");
   dt_bauhaus_slider_set_format(g->radius, "%.02f");
-  dt_bauhaus_slider_set_format(g->compress, "%.02f%%");
-  dt_bauhaus_slider_set_format(g->shadows_ccorrect, "%.02f%%");
-  dt_bauhaus_slider_set_format(g->highlights_ccorrect, "%.02f%%");
+  dt_bauhaus_slider_set_format(g->compress, _("%.02f%%"));
+  dt_bauhaus_slider_set_format(g->shadows_ccorrect, _("%.02f%%"));
+  dt_bauhaus_slider_set_format(g->highlights_ccorrect, _("%.02f%%"));
 
   gtk_box_pack_start(GTK_BOX(self->widget), g->shadows, TRUE, TRUE, 0);
   gtk_box_pack_start(GTK_BOX(self->widget), g->highlights, TRUE, TRUE, 0);

@@ -529,7 +529,7 @@ void gui_init(dt_iop_module_t *self)
   g->detail = dt_bauhaus_slider_new_with_range(self, 0.0, 500.0, 1.0, 120.0, 0);
   gtk_box_pack_start(GTK_BOX(self->widget), g->detail, TRUE, TRUE, 0);
   dt_bauhaus_widget_set_label(g->detail, NULL, _("detail"));
-  dt_bauhaus_slider_set_format(g->detail, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->detail, _("%.0f%%"));
   gtk_widget_set_tooltip_text(g->detail, _("changes the local contrast"));
 
   g->spatial = dt_bauhaus_slider_new_with_range(self, 1, 100, 1, 50, 0);
@@ -545,14 +545,14 @@ void gui_init(dt_iop_module_t *self)
   g->highlights = dt_bauhaus_slider_new_with_range(self, 0.0, 200.0, 1.0, 100.0, 0);
   gtk_box_pack_start(GTK_BOX(self->widget), g->highlights, TRUE, TRUE, 0);
   dt_bauhaus_widget_set_label(g->highlights, NULL, _("highlights"));
-  dt_bauhaus_slider_set_format(g->highlights, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->highlights, _("%.0f%%"));
   gtk_widget_set_tooltip_text(g->highlights, _("changes the local contrast of highlights"));
 
   g->shadows = dt_bauhaus_slider_new_with_range(self, 0.0, 200.0, 1.0, 100.0, 0);
   gtk_box_pack_start(GTK_BOX(self->widget), g->shadows, TRUE, TRUE, 0);
   dt_bauhaus_widget_set_label(g->shadows, NULL, _("shadows"));
   gtk_widget_set_tooltip_text(g->shadows, _("changes the local contrast of shadows"));
-  dt_bauhaus_slider_set_format(g->shadows, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->shadows, _("%.0f%%"));
 
   g->midtone = dt_bauhaus_slider_new_with_range(self, 0.001, 1.0, 0.001, 0.2, 3);
   gtk_box_pack_start(GTK_BOX(self->widget), g->midtone, TRUE, TRUE, 0);

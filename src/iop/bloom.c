@@ -510,19 +510,19 @@ void gui_init(struct dt_iop_module_t *self)
 
   /* size */
   g->scale1 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->size, 0);
-  dt_bauhaus_slider_set_format(g->scale1, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale1, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->scale1, NULL, _("size"));
   gtk_widget_set_tooltip_text(g->scale1, _("the size of bloom"));
 
   /* threshold */
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->threshold, 0);
-  dt_bauhaus_slider_set_format(g->scale2, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale2, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->scale2, NULL, _("threshold"));
   gtk_widget_set_tooltip_text(g->scale2, _("the threshold of light"));
 
   /* strength */
   g->scale3 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->strength, 0);
-  dt_bauhaus_slider_set_format(g->scale3, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale3, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->scale3, NULL, _("strength"));
   gtk_widget_set_tooltip_text(g->scale3, _("the strength of bloom"));
 

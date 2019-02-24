@@ -619,7 +619,7 @@ void gui_init(struct dt_iop_module_t *self)
   /* courseness */
   g->scale1 = dt_bauhaus_slider_new_with_range(self, 20.0, 6400.0, 20.0, p->scale * GRAIN_SCALE_FACTOR, 0);
   dt_bauhaus_widget_set_label(g->scale1, NULL, _("coarseness"));
-  dt_bauhaus_slider_set_format(g->scale1, "%.0fISO");
+  dt_bauhaus_slider_set_format(g->scale1, _("%.0f ISO")); // TODO/MdN: "n ISO" or "ISO n"?
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->scale1), TRUE, TRUE, 0);
   gtk_widget_set_tooltip_text(g->scale1, _("the grain size (~ISO of the film)"));
   g_signal_connect(G_OBJECT(g->scale1), "value-changed", G_CALLBACK(scale_callback), self);
@@ -627,7 +627,7 @@ void gui_init(struct dt_iop_module_t *self)
   /* strength */
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->strength, 2);
   dt_bauhaus_widget_set_label(g->scale2, NULL, _("strength"));
-  dt_bauhaus_slider_set_format(g->scale2, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale2, _("%.0f%%"));
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->scale2), TRUE, TRUE, 0);
   gtk_widget_set_tooltip_text(g->scale2, _("the strength of applied grain"));
   g_signal_connect(G_OBJECT(g->scale2), "value-changed", G_CALLBACK(strength_callback), self);
@@ -635,7 +635,7 @@ void gui_init(struct dt_iop_module_t *self)
   /* midtones bias */
   g->scale3 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 1.0, p->midtones_bias, 2);
   dt_bauhaus_widget_set_label(g->scale3, NULL, _("midtones bias"));
-  dt_bauhaus_slider_set_format(g->scale3, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale3, _("%.0f%%"));
   gtk_box_pack_start(GTK_BOX(self->widget), GTK_WIDGET(g->scale3), TRUE, TRUE, 0);
   gtk_widget_set_tooltip_text(g->scale3, _("amount of midtones bias from the photographic paper response modeling. the greater the bias, the more pronounced the fall off of the grain in shadows and highlights"));
   g_signal_connect(G_OBJECT(g->scale3), "value-changed", G_CALLBACK(midtones_bias_callback), self);

@@ -427,16 +427,16 @@ static void _metadata_view_update_values(dt_lib_module_t *self)
     _metadata_update_value_end(d->metadata[md_exif_lens], img->exif_lens);
     _metadata_update_value_end(d->metadata[md_exif_maker], img->camera_maker);
 
-    snprintf(value, sizeof(value), "F/%.1f", img->exif_aperture);
+    snprintf(value, sizeof(value), _("F/%.1f"), img->exif_aperture);
     _metadata_update_value(d->metadata[md_exif_aperture], value);
 
     if(img->exif_exposure <= 0.5)
-      snprintf(value, sizeof(value), "1/%.0f", 1.0 / img->exif_exposure);
+      snprintf(value, sizeof(value), _("1/%.0f"), 1.0 / img->exif_exposure);
     else
-      snprintf(value, sizeof(value), "%.1f''", img->exif_exposure);
+      snprintf(value, sizeof(value), _("%.1f''"), img->exif_exposure);
     _metadata_update_value(d->metadata[md_exif_exposure], value);
 
-    snprintf(value, sizeof(value), "%.0f mm", img->exif_focal_length);
+    snprintf(value, sizeof(value), _("%.0f mm"), img->exif_focal_length);
     _metadata_update_value(d->metadata[md_exif_focal_length], value);
 
     if(isnan(img->exif_focus_distance) || fpclassify(img->exif_focus_distance) == FP_ZERO)
@@ -445,7 +445,7 @@ static void _metadata_view_update_values(dt_lib_module_t *self)
     }
     else
     {
-      snprintf(value, sizeof(value), "%.2f m", img->exif_focus_distance);
+      snprintf(value, sizeof(value), _("%.2f m"), img->exif_focus_distance);
       _metadata_update_value(d->metadata[md_exif_focus_distance], value);
     }
 
@@ -526,8 +526,8 @@ static void _metadata_view_update_values(dt_lib_module_t *self)
       }
       else
       {
-        gchar NS = img->latitude < 0 ? 'S' : 'N';
-        snprintf(value, sizeof(value), "%c %09.6f", NS, fabs(img->latitude));
+        gchar NS = img->latitude < 0 ? C_("south", "S") : C_("north", "N");
+        snprintf(value, sizeof(value), _("%c %09.6f"), NS, fabs(img->latitude));
         _metadata_update_value(d->metadata[md_geotagging_lat], value);
       }
     }
@@ -546,8 +546,8 @@ static void _metadata_view_update_values(dt_lib_module_t *self)
       }
       else
       {
-        gchar EW = img->longitude < 0 ? 'W' : 'E';
-        snprintf(value, sizeof(value), "%c %010.6f", EW, fabs(img->longitude));
+        gchar EW = img->longitude < 0 ? C_("west", "W") : _("east", "E");
+        snprintf(value, sizeof(value), _("%c %010.6f"), EW, fabs(img->longitude));
         _metadata_update_value(d->metadata[md_geotagging_lon], value);
       }
     }
@@ -566,7 +566,7 @@ static void _metadata_view_update_values(dt_lib_module_t *self)
       }
       else
       {
-        snprintf(value, sizeof(value), "%.2f %s", img->elevation, _("m"));
+        snprintf(value, sizeof(value), _("%.2f m"), img->elevation);
         _metadata_update_value(d->metadata[md_geotagging_ele], value);
       }
     }

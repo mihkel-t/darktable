@@ -823,13 +823,13 @@ void gui_init(dt_iop_module_t *self)
   gtk_box_pack_start(GTK_BOX(self->widget), g->luma, TRUE, TRUE, 0);
   gtk_box_pack_start(GTK_BOX(self->widget), g->chroma, TRUE, TRUE, 0);
   dt_bauhaus_widget_set_label(g->radius, NULL, _("patch size"));
-  dt_bauhaus_slider_set_format(g->radius, "%.0f");
+  dt_bauhaus_slider_set_format(g->radius, "%.0f"); // TODO/MdN: which unit is this?
   dt_bauhaus_widget_set_label(g->strength, NULL, _("strength"));
-  dt_bauhaus_slider_set_format(g->strength, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->strength, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->luma, NULL, _("luma"));
-  dt_bauhaus_slider_set_format(g->luma, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->luma, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->chroma, NULL, _("chroma"));
-  dt_bauhaus_slider_set_format(g->chroma, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->chroma, _("%.0f%%"));
   gtk_widget_set_tooltip_text(g->radius, _("radius of the patches to match"));
   gtk_widget_set_tooltip_text(g->strength, _("strength of the effect"));
   gtk_widget_set_tooltip_text(g->luma, _("how much to smooth brightness"));

@@ -4749,7 +4749,7 @@ void gui_init(struct dt_iop_module_t *self)
 
   g->rotation = dt_bauhaus_slider_new_with_range(self, -ROTATION_RANGE, ROTATION_RANGE, 0.01*ROTATION_RANGE, p->rotation, 2);
   dt_bauhaus_widget_set_label(g->rotation, NULL, _("rotation"));
-  dt_bauhaus_slider_set_format(g->rotation, "%.2f°");
+  dt_bauhaus_slider_set_format(g->rotation, _("%.2f°"));
   dt_bauhaus_slider_enable_soft_boundaries(g->rotation, -ROTATION_RANGE_SOFT, ROTATION_RANGE_SOFT);
   gtk_box_pack_start(GTK_BOX(self->widget), g->rotation, TRUE, TRUE, 0);
 
@@ -4790,7 +4790,7 @@ void gui_init(struct dt_iop_module_t *self)
   g->f_length = dt_bauhaus_slider_new_with_range(self, 1.0f, 3.0f, 0.01f, 1.0f, 2);
   dt_bauhaus_widget_set_label(g->f_length, NULL, _("focal length"));
   dt_bauhaus_slider_set_callback(g->f_length, log10_callback);
-  dt_bauhaus_slider_set_format(g->f_length, "%.0fmm");
+  dt_bauhaus_slider_set_format(g->f_length, _("%.0f mm"));
   dt_bauhaus_slider_set_default(g->f_length, DEFAULT_F_LENGTH);
   dt_bauhaus_slider_set(g->f_length, DEFAULT_F_LENGTH);
   dt_bauhaus_slider_enable_soft_boundaries(g->f_length, 1.0f, 2000.0f);
@@ -4803,7 +4803,7 @@ void gui_init(struct dt_iop_module_t *self)
 
   g->orthocorr = dt_bauhaus_slider_new_with_range(self, 0.0f, 100.0f, 1.0f, p->orthocorr, 2);
   dt_bauhaus_widget_set_label(g->orthocorr, NULL, _("lens dependence"));
-  dt_bauhaus_slider_set_format(g->orthocorr, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->orthocorr, _("%.0f%%"));
 #if 0
   // this parameter could serve to finetune between generic model (0%) and specific model (100%).
   // however, users can more easily get the same effect with the aspect adjust parameter so we keep

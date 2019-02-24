@@ -704,21 +704,21 @@ void gui_init(struct dt_iop_module_t *self)
 
   /* size */
   g->scale1 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 2, p->size, 2);
-  dt_bauhaus_slider_set_format(g->scale1, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale1, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->scale1, NULL, _("size"));
   gtk_widget_set_tooltip_text(g->scale1, _("the size of blur"));
   g_signal_connect(G_OBJECT(g->scale1), "value-changed", G_CALLBACK(size_callback), self);
 
   /* saturation */
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 2, p->saturation, 2);
-  dt_bauhaus_slider_set_format(g->scale2, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale2, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->scale2, NULL, _("saturation"));
   gtk_widget_set_tooltip_text(g->scale2, _("the saturation of blur"));
   g_signal_connect(G_OBJECT(g->scale2), "value-changed", G_CALLBACK(saturation_callback), self);
 
   /* brightness */
   g->scale3 = dt_bauhaus_slider_new_with_range(self, -2.0, 2.0, 0.01, p->brightness, 2);
-  dt_bauhaus_slider_set_format(g->scale3, "%.2fEV");
+  dt_bauhaus_slider_set_format(g->scale3, _("%.2f EV"));
   dt_bauhaus_widget_set_label(g->scale3, NULL, _("brightness"));
   gtk_widget_set_tooltip_text(g->scale3, _("the brightness of blur"));
   g_signal_connect(G_OBJECT(g->scale3), "value-changed", G_CALLBACK(brightness_callback), self);
@@ -726,7 +726,7 @@ void gui_init(struct dt_iop_module_t *self)
   /* amount */
   // TODO: deprecate this function in favor for blending
   g->scale4 = dt_bauhaus_slider_new_with_range(self, 0.0, 100.0, 2, p->amount, 2);
-  dt_bauhaus_slider_set_format(g->scale4, "%.0f%%");
+  dt_bauhaus_slider_set_format(g->scale4, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->scale4, NULL, _("mix"));
   gtk_widget_set_tooltip_text(g->scale4, _("the mix of effect"));
   g_signal_connect(G_OBJECT(g->scale4), "value-changed", G_CALLBACK(amount_callback), self);
