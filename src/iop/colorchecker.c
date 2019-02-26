@@ -1218,7 +1218,8 @@ static gboolean checker_motion_notify(GtkWidget *widget, GdkEventMotion *event,
   if(patch < 0 || patch >= p->num_patches) return FALSE;
   char tooltip[1024];
   snprintf(tooltip, sizeof(tooltip),
-      _("(%2.2f %2.2f %2.2f)\n"
+      // translators: 1st variable is for L*, 2nd for a*, 3rd for b* value
+      _("(%1$2.2f %2$2.2f %3$2.2f)\n"
         "altered patches are marked with an outline\n"
         "click to select\n"
         "double click to reset\n"

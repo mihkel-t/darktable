@@ -1375,11 +1375,12 @@ void dt_database_show_error(const dt_database_t *db)
 {
   if(!db->lock_acquired)
   {
+    // translators: 1st variable is for database filename, 2nd for error message (if any)
     char *label_text = g_markup_printf_escaped(_("an error has occurred while trying to open the database from\n"
                                                   "\n"
-                                                  "<span style=\"italic\">%s</span>\n"
+                                                  "<span style=\"italic\">%1$s</span>\n"
                                                   "\n"
-                                                  "%s\n"),
+                                                  "%2$s\n"),
                                                 db->error_dbfilename, db->error_message ? db->error_message : "");
 
     dt_gui_show_standalone_yes_no_dialog(_("darktable - error locking database"), label_text, _("close darktable"),

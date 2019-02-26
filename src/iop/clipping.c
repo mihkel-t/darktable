@@ -2269,7 +2269,8 @@ void gui_post_expose(struct dt_iop_module_t *self, cairo_t *cr, int32_t width, i
 
     int procw, proch;
     dt_dev_get_processed_size(dev, &procw, &proch);
-    snprintf(dimensions, sizeof(dimensions), _("%.0fx%.0f"), (float)procw * g->clip_w, (float)proch * g->clip_h);
+    // translators: 1st variable is for crop area width, 2nd for heigth
+    snprintf(dimensions, sizeof(dimensions), _("%1$.0fx%2$.0f"), (float)procw * g->clip_w, (float)proch * g->clip_h);
 
     pango_layout_set_text(layout, dimensions, -1);
     pango_layout_get_pixel_extents(layout, &ink, NULL);

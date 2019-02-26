@@ -720,12 +720,27 @@ static gboolean _dt_delete_dialog_main_thread(gpointer user_data)
       GTK_DIALOG_DESTROY_WITH_PARENT,
       GTK_MESSAGE_QUESTION,
       GTK_BUTTONS_NONE,
+      // TODO/MdN: find a way to get rid of the compound strings here
       modal_dialog->send_to_trash
-        ? _("could not send %s to trash%s%s")
-        : _("could not physically delete %s%s%s"),
+      // translators: 1st variable is for filename, 2nd for ": " (if there's an error message),
+      // 3rd for the error message
+        ? _("could not send %1$s to trash%2$s%3$s")
+        : _("could not physically delete %1$s%2$s%3$s"),
       modal_dialog->filename,
-      modal_dialog->error_message != NULL ? ": " : "",
+      modal_dialog->error_message != NULL ? _(": ") : "",
       modal_dialog->error_message != NULL ? modal_dialog->error_message : "");
+      /*
+      modal_dialog->error_message != NULL
+        ? modal_dialog->send_to_trash
+          // translators: 1st variable is for filename, 2nd for error message
+          ? _("could not send %1$s to trash: %2$s")
+          : _("could not physically delete %1$s: %2$s")
+          modal_dialog->filename, modal_dialog->error_message
+        : modal_dialog->send_to_trash
+          ? _("could not send %s to trash")
+          : _("could not physically delete %s")
+          modal_dialog->filename);
+      */
 #ifdef GDK_WINDOWING_QUARTZ
   dt_osx_disallow_fullscreen(dialog);
 #endif
@@ -1239,7 +1254,8 @@ static int32_t dt_control_export_job_run(dt_job_t *job)
   const guint total = g_list_length(t);
   dt_control_log(ngettext("exporting %d image..", "exporting %d images..", total), total);
   char message[512] = { 0 };
-  snprintf(message, sizeof(message), ngettext("exporting %d image to %s", "exporting %d images to %s", total),
+  // translators: 1st variable is for image count, 2nd for target storage name (e.g. "file on disk")
+  snprintf(message, sizeof(message), ngettext("exporting %1$d image to %2$s", "exporting %1$d images to %2$s", total),
            total, mstorage->name(mstorage));
   // update the message. initialize_store() might have changed the number of images
   dt_control_job_set_progress_message(job, message);
@@ -1523,9 +1539,10 @@ void dt_control_move_images()
   {
     GtkWidget *dialog = gtk_message_dialog_new(
         GTK_WINDOW(win), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
-        ngettext("do you really want to physically move the %d selected image to %s?\n"
+        // translators: 1st variable is for number, 2nd for directory
+        ngettext("do you really want to physically move the %1$d selected image to %2$s?\n"
                  "(all unselected duplicates will be moved along)",
-                 "do you really want to physically move %d selected images to %s?\n"
+                 "do you really want to physically move %1$d selected images to %2$s?\n"
                  "(all unselected duplicates will be moved along)",
                  number),
         number, dir);
@@ -1583,8 +1600,9 @@ void dt_control_copy_images()
   {
     GtkWidget *dialog = gtk_message_dialog_new(
         GTK_WINDOW(win), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
-        ngettext("do you really want to physically copy the %d selected image to %s?",
-                 "do you really want to physically copy %d selected images to %s?", number),
+        // translators: 1st variable is for number, 2nd for directory
+        ngettext("do you really want to physically copy the %1$d selected image to %2$s?",
+                 "do you really want to physically copy %1$d selected images to %2$s?", number),
         number, dir);
 #ifdef GDK_WINDOWING_QUARTZ
     dt_osx_disallow_fullscreen(dialog);

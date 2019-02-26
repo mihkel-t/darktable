@@ -1324,7 +1324,8 @@ static void edit_preset(GtkTreeView *tree, const gint rowid, const gchar *name, 
   GtkWidget *dialog;
   /* Create the widgets */
   char title[1024];
-  snprintf(title, sizeof(title), _("edit `%s' for module `%s'"), name, module);
+  // translators: 1st variable is for preset name, 2nd for module name
+  snprintf(title, sizeof(title), _("edit `%1$s' for module `%2$s'"), name, module);
   dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(_preferences_dialog),
                                        GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
                                        _("_save"), GTK_RESPONSE_YES,

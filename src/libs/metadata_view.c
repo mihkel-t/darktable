@@ -526,8 +526,9 @@ static void _metadata_view_update_values(dt_lib_module_t *self)
       }
       else
       {
-        gchar NS = img->latitude < 0 ? C_("south", "S") : C_("north", "N");
-        snprintf(value, sizeof(value), _("%c %09.6f"), NS, fabs(img->latitude));
+        const gchar *NS = img->latitude < 0 ? C_("south", "S") : C_("north", "N");
+        // translators: 1st variable is for S or N, 2nd for the latitude
+        snprintf(value, sizeof(value), _("%1$s %2$09.6f"), NS, fabs(img->latitude));
         _metadata_update_value(d->metadata[md_geotagging_lat], value);
       }
     }
@@ -546,8 +547,9 @@ static void _metadata_view_update_values(dt_lib_module_t *self)
       }
       else
       {
-        gchar EW = img->longitude < 0 ? C_("west", "W") : _("east", "E");
-        snprintf(value, sizeof(value), _("%c %010.6f"), EW, fabs(img->longitude));
+        const gchar *EW = img->longitude < 0 ? C_("west", "W") : C_("east", "E");
+        // translators: 1st variable is for W or E, 2nd for the longitude
+        snprintf(value, sizeof(value), _("%1$s %2$010.6f"), EW, fabs(img->longitude));
         _metadata_update_value(d->metadata[md_geotagging_lon], value);
       }
     }

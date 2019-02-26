@@ -1320,7 +1320,7 @@ cleanup:
   if(result)
   {
     // this makes sense only if the export was successful
-    dt_control_log(ngettext("%d/%d exported to google photos album", "%d/%d exported to google photos album", num), num, total);
+    dt_control_log(ngettext("%1$d/%2$d exported to google photos album", "%1$d/%2$d exported to google photos album", num), num, total);
   }
   return 0;
 }

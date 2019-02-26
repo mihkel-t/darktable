@@ -382,7 +382,8 @@ static void edit_preset(const char *name_in, dt_iop_module_t *module)
   /* Create the widgets */
   char title[1024];
   GtkWidget *window = dt_ui_main_window(darktable.gui->ui);
-  snprintf(title, sizeof(title), _("edit `%s' for module `%s'"), name, module->name());
+  // translators: 1st variable is for preset name, 2nd for module name
+  snprintf(title, sizeof(title), _("edit `%1$s' for module `%2$s'"), name, module->name());
   dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(window), GTK_DIALOG_DESTROY_WITH_PARENT, _("_ok"),
                                        GTK_RESPONSE_ACCEPT, _("_cancel"), GTK_RESPONSE_REJECT, NULL);
 #ifdef GDK_WINDOWING_QUARTZ

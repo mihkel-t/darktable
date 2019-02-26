@@ -1807,13 +1807,13 @@ static void lens_set(dt_iop_module_t *self, const lfLens *lens)
 
   // focal length
   w = dt_bauhaus_combobox_new(self);
-  dt_bauhaus_widget_set_label(w, NULL, _("mm"));
+  dt_bauhaus_widget_set_label(w, NULL, "");
   gtk_widget_set_tooltip_text(w, _("focal length (mm)"));
-  snprintf(txt, sizeof(txt), "%.*f", precision(p->focal, 10.0), p->focal);
+  snprintf(txt, sizeof(txt), _("%.*f mm"), precision(p->focal, 10.0), p->focal);
   dt_bauhaus_combobox_add(w, txt);
   for(int k = 0; k < fli - ffi; k++)
   {
-    snprintf(txt, sizeof(txt), "%.*f", precision(focal_values[ffi + k], 10.0), focal_values[ffi + k]);
+    snprintf(txt, sizeof(txt), _("%.*f mm"), precision(focal_values[ffi + k], 10.0), focal_values[ffi + k]);
     dt_bauhaus_combobox_add(w, txt);
   }
   g_signal_connect(G_OBJECT(w), "value-changed", G_CALLBACK(lens_comboentry_focal_update), self);
@@ -1832,13 +1832,13 @@ static void lens_set(dt_iop_module_t *self, const lfLens *lens)
   }
 
   w = dt_bauhaus_combobox_new(self);
-  dt_bauhaus_widget_set_label(w, NULL, _("f/"));
+  dt_bauhaus_widget_set_label(w, NULL, "");
   gtk_widget_set_tooltip_text(w, _("f-number (aperture)"));
-  snprintf(txt, sizeof(txt), "%.*f", precision(p->aperture, 10.0), p->aperture);
+  snprintf(txt, sizeof(txt), _("f/%.*f"), precision(p->aperture, 10.0), p->aperture);
   dt_bauhaus_combobox_add(w, txt);
   for(size_t k = 0; k < fli - ffi; k++)
   {
-    snprintf(txt, sizeof(txt), "%.*f", precision(aperture_values[ffi + k], 10.0), aperture_values[ffi + k]);
+    snprintf(txt, sizeof(txt), _("f/%.*f"), precision(aperture_values[ffi + k], 10.0), aperture_values[ffi + k]);
     dt_bauhaus_combobox_add(w, txt);
   }
   g_signal_connect(G_OBJECT(w), "value-changed", G_CALLBACK(lens_comboentry_aperture_update), self);
@@ -1847,15 +1847,15 @@ static void lens_set(dt_iop_module_t *self, const lfLens *lens)
   g->cbe[1] = w;
 
   w = dt_bauhaus_combobox_new(self);
-  dt_bauhaus_widget_set_label(w, NULL, _("d"));
+  dt_bauhaus_widget_set_label(w, NULL, "");
   gtk_widget_set_tooltip_text(w, _("distance to subject"));
-  snprintf(txt, sizeof(txt), "%.*f", precision(p->distance, 10.0), p->distance);
+  snprintf(txt, sizeof(txt), _("%.*f m"), precision(p->distance, 10.0), p->distance);
   dt_bauhaus_combobox_add(w, txt);
   float val = 0.25f;
   for(int k = 0; k < 25; k++)
   {
     if(val > 1000.0f) val = 1000.0f;
-    snprintf(txt, sizeof(txt), "%.*f", precision(val, 10.0), val);
+    snprintf(txt, sizeof(txt), _("%.*f m"), precision(val, 10.0), val);
     dt_bauhaus_combobox_add(w, txt);
     if(val >= 1000.0f) break;
     val *= sqrtf(2.0f);

@@ -1182,7 +1182,9 @@ void dt_dev_read_history_ext(dt_develop_t *dev, const int imgid, gboolean no_ima
         const char *fname = dev->image_storage.filename + strlen(dev->image_storage.filename);
         while(fname > dev->image_storage.filename && *fname != '/') fname--;
         if(fname > dev->image_storage.filename) fname++;
-        dt_control_log(_("%s: module `%s' version mismatch: %d != %d"), fname, hist->module->op,
+        // translators: 1st variable is for filename, 2nd for modulename,
+        // 3rd for module version from history, 4th for current version
+        dt_control_log(_("%1$s: module `%2$s' version mismatch: %3$d != %4$d"), fname, hist->module->op,
                        hist->module->version(), modversion);
         dt_dev_free_history_item(hist);
         continue;

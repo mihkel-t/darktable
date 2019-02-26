@@ -1527,14 +1527,16 @@ void dt_collection_hint_message(const dt_collection_t *collection)
 
   if(cs == 1)
   {
-    message = g_strdup_printf(_("%d image of %d (#%d) in current collection is selected"), cs, c, selected);
+    // translators: 1st variable is for selection count, 2nd for total count, 3rd for image id
+    message = g_strdup_printf(_("%1$d image of %2$d (#%3$d) in current collection is selected"), cs, c, selected);
   }
   else
   {
     message = g_strdup_printf(
+      // translators: 1st variable is for selection count, 2nd for total count
       ngettext(
-        "%d image of %d in current collection is selected",
-        "%d images of %d in current collection are selected",
+        "%1$d image of %2$d in current collection is selected",
+        "%1$d images of %2$d in current collection are selected",
         cs),
       cs, c);
   }

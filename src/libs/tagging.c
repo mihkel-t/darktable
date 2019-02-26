@@ -320,8 +320,8 @@ static void delete_button_clicked(GtkButton *button, gpointer user_data)
     gchar *tagname = dt_tag_get_name(tagid);
     dialog = gtk_message_dialog_new(
         GTK_WINDOW(win), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
-        ngettext("do you really want to delete the tag `%s'?\n%d image is assigned this tag!",
-                 "do you really want to delete the tag `%s'?\n%d images are assigned this tag!", count),
+        ngettext("do you really want to delete the tag `%1$s'?\n%2$d image is assigned this tag!",
+                 "do you really want to delete the tag `%1$s'?\n%2$d images are assigned this tag!", count),
         tagname, count);
 #ifdef GDK_WINDOWING_QUARTZ
     dt_osx_disallow_fullscreen(dialog);

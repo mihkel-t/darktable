@@ -1164,7 +1164,8 @@ void dt_masks_read_forms_ext(dt_develop_t *dev, const int imgid, gboolean no_ima
         fprintf(stderr,
                 "[dt_masks_read_forms] %s (imgid `%i'): mask version mismatch: history is %d, dt %d.\n",
                 fname, imgid, form->version, dt_masks_version());
-        dt_control_log(_("%s: mask version mismatch: %d != %d"), fname, dt_masks_version(), form->version);
+        // translators: 1st variable is for filename, 2nd for mask version from history, 3rd for current version
+        dt_control_log(_("%1$s: mask version mismatch: %2$d != %3$d"), fname, dt_masks_version(), form->version);
 
         continue;
       }

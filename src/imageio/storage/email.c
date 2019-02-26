@@ -139,7 +139,8 @@ int store(dt_imageio_module_storage_t *self, dt_imageio_module_data_t *sdata, co
     return 1;
   }
 
-  dt_control_log(ngettext("%d/%d exported to `%s'", "%d/%d exported to `%s'", num),
+  // translators: 1st variable is for current count, 2nd for total, 3rd for filename
+  dt_control_log(ngettext("%1$d/%2$d exported to `%3$s'", "%1$d/%2$d exported to `%3$s'", num),
                  num, total, attachment->file);
 
 #ifdef _OPENMP // store can be called in parallel, so synch access to shared memory

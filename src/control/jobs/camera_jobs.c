@@ -278,7 +278,8 @@ void _camera_import_image_downloaded(const dt_camera_t *camera, const char *file
   dt_image_import(dt_import_session_film_id(t->shared.session), filename, FALSE);
   dt_control_queue_redraw_center();
   gchar *basename = g_path_get_basename(filename);
-  dt_control_log(ngettext("%d/%d imported to %s", "%d/%d imported to %s", t->import_count + 1),
+  // translators: 1st variable is for done count, 2nd for total count, 3rd for base filename
+  dt_control_log(ngettext("%1$d/%2$d imported to %3$s", "%1$d/%2$d imported to %3$s", t->import_count + 1),
                  t->import_count + 1, g_list_length(t->images), basename);
   g_free(basename);
 

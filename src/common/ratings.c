@@ -81,7 +81,8 @@ void dt_ratings_apply_to_image_or_group(int imgid, int rating)
         if(rating == 6)
           dt_control_log(ngettext("rejecting %d image", "rejecting %d images", count), count);
         else
-          dt_control_log(ngettext("applying rating %d to %d image", "applying rating %d to %d images", count),
+          // translators: 1st variable is for rating, 2nd for image count
+          dt_control_log(ngettext("applying rating %1$d to %2$d image", "applying rating %1$d to %2$d images", count),
                          rating, count);
       }
     }
@@ -100,7 +101,8 @@ void dt_ratings_apply_to_selection(int rating)
     if(rating == 6)
       dt_control_log(ngettext("rejecting %d image", "rejecting %d images", count), count);
     else
-      dt_control_log(ngettext("applying rating %d to %d image", "applying rating %d to %d images", count),
+      // translators: 1st variable is for rating, 2nd for image count
+      dt_control_log(ngettext("applying rating %1$d to %2$d image", "applying rating %1$d to %2$d images", count),
                      rating, count);
 #if 0 // not updating cache
     gchar query[1024]= {0};

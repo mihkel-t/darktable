@@ -1025,7 +1025,7 @@ cleanup:
   if(!result)
   {
     // this makes sense only if the export was successful
-    dt_control_log(ngettext("%d/%d exported to piwigo webalbum", "%d/%d exported to piwigo webalbum", num),
+    dt_control_log(ngettext("%1$d/%2$d exported to piwigo webalbum", "%1$d/%2$d exported to piwigo webalbum", num),
                    num, total);
   }
   return result;

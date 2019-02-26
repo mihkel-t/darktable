@@ -223,7 +223,7 @@ void _lib_import_ui_devices_update(dt_lib_module_t *self)
       }
       else
       {
-        snprintf(buffer, sizeof(buffer), _("device \"%s\" connected on port \"%s\"."), camera->model,
+        snprintf(buffer, sizeof(buffer), _("device \"%1$s\" connected on port \"%2$s\"."), camera->model,
                  camera->port);
         gtk_widget_set_tooltip_text(label, buffer);
       }

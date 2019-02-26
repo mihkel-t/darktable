@@ -722,7 +722,7 @@ cleanup:
   if(!result)
   {
     // this makes sense only if the export was successful
-    dt_control_log(ngettext("%d/%d exported to flickr webalbum", "%d/%d exported to flickr webalbum", num),
+    dt_control_log(ngettext("%1$d/%2$d exported to flickr webalbum", "%1$d/%2$d exported to flickr webalbum", num),
                    num, total);
   }
   return result;

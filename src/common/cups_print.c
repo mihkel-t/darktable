@@ -404,7 +404,8 @@ void dt_print_file(const int32_t imgid, const char *filename, const char *job_ti
 
   if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR))
   {
-    dt_control_log(_("file `%s' to print not found for image %d on `%s'"), filename, imgid, pinfo->printer.name);
+    // translators: 1st variable is for filename, 2nd for image id, 3rd for printer name
+    dt_control_log(_("file `%1$s' to print not found for image %2$d on `%3$s'"), filename, imgid, pinfo->printer.name);
     return;
   }
 
@@ -491,6 +492,7 @@ void dt_print_file(const int32_t imgid, const char *filename, const char *job_ti
     }
     else
     {
+      // translators: %s is printer name
       dt_control_log(_("printing on `%s' cancelled"), pinfo->printer.name);
       dt_print(DT_DEBUG_PRINT, "[print]   command fails with %d, cancel printing\n", exit_status);
       return;
@@ -554,9 +556,11 @@ void dt_print_file(const int32_t imgid, const char *filename, const char *job_ti
   const int job_id = cupsPrintFile(pinfo->printer.name, filename, job_title, num_options, options);
 
   if (job_id == 0)
-    dt_control_log(_("error while printing `%s' on `%s'"), job_title, pinfo->printer.name);
+    // translators: 1st variable is for print job title, 2nd for printer name
+    dt_control_log(_("error while printing `%1$s' on `%2$s'"), job_title, pinfo->printer.name);
   else
-    dt_control_log(_("printing `%s' on `%s'"), job_title, pinfo->printer.name);
+    // translators: 1st variable is for print job title, 2nd for printer name
+    dt_control_log(_("printing `%1$s' on `%2$s'"), job_title, pinfo->printer.name);
 
   cupsFreeOptions (num_options, options);
 }

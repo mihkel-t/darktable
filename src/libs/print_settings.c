@@ -238,7 +238,8 @@ static int _print_job_run(dt_job_t *job)
 
   // let the user know something is happening
   dt_control_job_set_progress(job, 0.05);
-  dt_control_log(_("processing `%s' for `%s'"), params->job_title, params->prt.printer.name);
+  // translators: 1st variable is for print job title, 2nd for printer name
+  dt_control_log(_("processing `%1$s' for `%2$s'"), params->job_title, params->prt.printer.name);
 
   const gboolean high_quality = TRUE;
   const gboolean upscale = TRUE;
@@ -436,7 +437,8 @@ _print_button_clicked (GtkWidget *widget, gpointer user_data)
     dt_image_cache_read_release(darktable.image_cache, img);
   }
   // FIXME: ellipsize title/printer as the export completed message is ellipsized
-  gchar *message = g_strdup_printf(_("processing `%s' for `%s'"), params->job_title, params->prt.printer.name);
+  // translators: 1st variable is for print job title, 2nd for printer name
+  gchar *message = g_strdup_printf(_("processing `%1$s' for `%2$s'"), params->job_title, params->prt.printer.name);
   dt_control_job_add_progress(job, message, TRUE);
   g_free(message);
 
@@ -695,7 +697,8 @@ _update_slider (dt_lib_print_settings_t *ps)
     else
       scale = dt_pdf_point_to_pixel(dt_pdf_mm_to_point((double)aheight), ps->prt.printer.resolution) / ps->iheight;
 
-    value = g_strdup_printf(_("%3.2f (dpi:%d)"), scale, scale<=1.0 ? (int)ps->prt.printer.resolution : (int)(ps->prt.printer.resolution / scale));
+    // TODO/MdN: translators: 1st variable is for ???
+    value = g_strdup_printf(_("%1$3.2f (dpi:%2$d)"), scale, scale<=1.0 ? (int)ps->prt.printer.resolution : (int)(ps->prt.printer.resolution / scale));
     gtk_label_set_text(GTK_LABEL(ps->info), value);
     g_free(value);
   }

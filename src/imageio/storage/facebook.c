@@ -1343,7 +1343,7 @@ cleanup:
   if(result)
   {
     // this makes sense only if the export was successful
-    dt_control_log(ngettext("%d/%d exported to facebook webalbum", "%d/%d exported to facebook webalbum", num),
+    dt_control_log(ngettext("%1$d/%2$d exported to facebook webalbum", "%1$d/%2$d exported to facebook webalbum", num),
                    num, total);
   }
   return 0;

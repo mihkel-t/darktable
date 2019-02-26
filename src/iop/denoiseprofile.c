@@ -2098,7 +2098,8 @@ void reload_defaults(dt_iop_module_t *module)
         dt_noiseprofile_interpolate(last, current, &g->interpolated);
         // signal later autodetection in commit_params:
         g->interpolated.a[0] = -1.0f;
-        snprintf(name, sizeof(name), _("interpolated from ISO %d and %d"), last->iso, current->iso);
+        // translators: 1st variable is for last iso, 2nd for current iso
+        snprintf(name, sizeof(name), _("interpolated from ISO %1$d and %2$d"), last->iso, current->iso);
         break;
       }
       last = current;
