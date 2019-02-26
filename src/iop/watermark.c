@@ -763,11 +763,13 @@ static gchar *_watermark_get_svgdoc(dt_iop_module_t *self, dt_iop_watermark_data
     }
     else
     {
-      const gchar NS = image->latitude < 0 ? 'S' : 'N';
-      const gchar EW = image->longitude < 0 ? 'W' : 'E';
-      if(image->latitude) latitude = g_strdup_printf("%c %09.6f", NS, fabs(image->latitude));
-      if(image->longitude) longitude = g_strdup_printf("%c %010.6f", EW, fabs(image->longitude));
-      if(image->elevation) elevation = g_strdup_printf("%.2f %s", image->elevation, _("m"));
+      const gchar *NS = img->latitude < 0 ? C_("south", "S") : C_("north", "N");
+      const gchar *EW = image->longitude < 0 ? C_("west", "W") : C_("east", "E");
+      // translators: 1st variable is for S or N, 2nd for the latitude
+      if(image->latitude) latitude = g_strdup_printf(_("%1$s %2$09.6f"), NS, fabs(image->latitude));
+      // translators: 1st variable is for W or E, 2nd for the longitude
+      if(image->longitude) longitude = g_strdup_printf(_("%1$s %2$010.6f"), EW, fabs(image->longitude));
+      if(image->elevation) elevation = g_strdup_printf(_("%.2f m"), image->elevation);
     }
     gchar *parts[4] = { 0 };
     int i = 0;
