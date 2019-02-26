@@ -572,7 +572,7 @@ void init_presets(dt_iop_module_so_t *self)
 {
   dt_iop_borders_params_t p = (dt_iop_borders_params_t){ { 1.0f, 1.0f, 1.0f },
                                                          3.0f / 2.0f,
-                                                         "3:2", /* TODO/MdN: _() ? */
+                                                         "3:2",
                                                          0,
                                                          0.1f,
                                                          0.5f,

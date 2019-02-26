@@ -335,7 +335,7 @@ void gui_init(struct dt_iop_module_t *self)
   g_signal_connect(G_OBJECT(g->scale1), "value-changed", G_CALLBACK(ev_callback), self);
   /* width */
   g->scale2 = dt_bauhaus_slider_new_with_range(self, 2, 10, 0.5, p->width, 1);
-  dt_bauhaus_slider_set_format(g->scale2, "%.1f"); // TODO/MdN: which unit is this?
+  dt_bauhaus_slider_set_format(g->scale2, "%.1f");
   dt_bauhaus_widget_set_label(g->scale2, NULL, _("width"));
   /* xgettext:no-c-format */
   gtk_widget_set_tooltip_text(g->scale2, _("width of fill-light area defined in zones"));

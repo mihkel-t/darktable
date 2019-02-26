@@ -697,7 +697,7 @@ _update_slider (dt_lib_print_settings_t *ps)
     else
       scale = dt_pdf_point_to_pixel(dt_pdf_mm_to_point((double)aheight), ps->prt.printer.resolution) / ps->iheight;
 
-    // TODO/MdN: translators: 1st variable is for ???
+    // TODO/i18n: translators: 1st variable is for scale, 2nd for printing resolution
     value = g_strdup_printf(_("%1$3.2f (dpi:%2$d)"), scale, scale<=1.0 ? (int)ps->prt.printer.resolution : (int)(ps->prt.printer.resolution / scale));
     gtk_label_set_text(GTK_LABEL(ps->info), value);
     g_free(value);

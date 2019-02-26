@@ -1559,8 +1559,7 @@ static gboolean dt_iop_tonecurve_draw(GtkWidget *widget, cairo_t *crf, gpointer 
         picker_scale(raw_max, picker_max);
 
         // scale conservatively to 100% of width:
-        // TODO/MdN: does this and following need _()
-        snprintf(text, sizeof(text), "100.00 / 100.00 ( +100.00)");
+        snprintf(text, sizeof(text), _("100.00 / 100.00 (+100.00)"));
         pango_layout_set_text(layout, text, -1);
         pango_layout_get_pixel_extents(layout, &ink, NULL);
         pango_font_description_set_absolute_size(desc, width*1.0/ink.width * PANGO_SCALE);
@@ -1606,7 +1605,7 @@ static gboolean dt_iop_tonecurve_draw(GtkWidget *widget, cairo_t *crf, gpointer 
     pango_layout_set_font_description(layout, desc);
 
     // scale conservatively to 100% of width:
-    snprintf(text, sizeof(text), "100.00 / 100.00 ( +100.00)");
+    snprintf(text, sizeof(text), _("100.00 / 100.00 (+100.00)"));
     pango_layout_set_text(layout, text, -1);
     pango_layout_get_pixel_extents(layout, &ink, NULL);
     pango_font_description_set_absolute_size(desc, width*1.0/ink.width * PANGO_SCALE);
@@ -1618,7 +1617,7 @@ static gboolean dt_iop_tonecurve_draw(GtkWidget *widget, cairo_t *crf, gpointer 
     const float x_node_value = tonecurve[c->selected].x * (max_scale_value - min_scale_value) + min_scale_value;
     const float y_node_value = tonecurve[c->selected].y * (max_scale_value - min_scale_value) + min_scale_value;
     const float d_node_value = y_node_value - x_node_value;
-    snprintf(text, sizeof(text), "%.1f / %.1f ( %+.1f)", x_node_value, y_node_value, d_node_value);
+    snprintf(text, sizeof(text), _("%1$.1f / %2$.1f (%3$+.1f)"), x_node_value, y_node_value, d_node_value);
 
     cairo_set_source_rgb(cr, 0.1, 0.1, 0.1);
     pango_layout_set_text(layout, text, -1);

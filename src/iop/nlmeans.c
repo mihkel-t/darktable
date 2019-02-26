@@ -823,7 +823,7 @@ void gui_init(dt_iop_module_t *self)
   gtk_box_pack_start(GTK_BOX(self->widget), g->luma, TRUE, TRUE, 0);
   gtk_box_pack_start(GTK_BOX(self->widget), g->chroma, TRUE, TRUE, 0);
   dt_bauhaus_widget_set_label(g->radius, NULL, _("patch size"));
-  dt_bauhaus_slider_set_format(g->radius, "%.0f"); // TODO/MdN: which unit is this?
+  dt_bauhaus_slider_set_format(g->radius, "%.0f");
   dt_bauhaus_widget_set_label(g->strength, NULL, _("strength"));
   dt_bauhaus_slider_set_format(g->strength, _("%.0f%%"));
   dt_bauhaus_widget_set_label(g->luma, NULL, _("luma"));

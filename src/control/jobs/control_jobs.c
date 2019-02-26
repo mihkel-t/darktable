@@ -720,7 +720,7 @@ static gboolean _dt_delete_dialog_main_thread(gpointer user_data)
       GTK_DIALOG_DESTROY_WITH_PARENT,
       GTK_MESSAGE_QUESTION,
       GTK_BUTTONS_NONE,
-      // TODO/MdN: find a way to get rid of the compound strings here
+      // TODO/i18n: find a way to get rid of the compound strings here
       modal_dialog->send_to_trash
       // translators: 1st variable is for filename, 2nd for ": " (if there's an error message),
       // 3rd for the error message
