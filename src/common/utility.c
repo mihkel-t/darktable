@@ -446,20 +446,18 @@ cairo_surface_t *dt_util_get_logo(float size)
 
 // the following two functions (dt_util_latitude_str and dt_util_longitude_str) were taken from libosmgpsmap
 // Copyright (C) 2013 John Stowers <john.stowers@gmail.com>
-/* these can be overwritten with versions that support
- *   localization */
-#define OSD_COORDINATES_CHR_N  "N"
-#define OSD_COORDINATES_CHR_S  "S"
-#define OSD_COORDINATES_CHR_E  "E"
-#define OSD_COORDINATES_CHR_W  "W"
-
+// amended for better i18n support
+static const char *OSD_COORDINATES_CHR_N = NC_("north", "N");
+static const char *OSD_COORDINATES_CHR_S = NC_("south", "S");
+static const char *OSD_COORDINATES_CHR_E = NC_("east", "E");
+static const char *OSD_COORDINATES_CHR_W = NC_("west", "W");
 static const char *OSD_ELEVATION_ASL = N_("above sea level");
 static const char *OSD_ELEVATION_BSL = N_("below sea level");
 
 /* this is the classic geocaching notation */
 gchar *dt_util_latitude_str(float latitude)
 {
-  gchar *c = OSD_COORDINATES_CHR_N;
+  const gchar *c = OSD_COORDINATES_CHR_N;
   float integral, fractional;
 
   if(isnan(latitude)) return NULL;
@@ -472,12 +470,13 @@ gchar *dt_util_latitude_str(float latitude)
 
   fractional = modff(latitude, &integral);
 
-  return g_strdup_printf("%s %02d° %06.3f'", c, (int)integral, fractional*60.0);
+  // translators: 1st variable is for N or S, 2nd and 3rd for the latitude
+  return g_strdup_printf(_("%1$s %2$02d° %3$06.3f'"), c, (int)integral, fractional*60.0);
 }
 
 gchar *dt_util_longitude_str(float longitude)
 {
-  gchar *c = OSD_COORDINATES_CHR_E;
+  const gchar *c = OSD_COORDINATES_CHR_E;
   float integral, fractional;
 
   if(isnan(longitude)) return NULL;
@@ -490,7 +489,8 @@ gchar *dt_util_longitude_str(float longitude)
 
   fractional = modff(longitude, &integral);
 
-  return g_strdup_printf("%s %03d° %06.3f'", c, (int)integral, fractional*60.0);
+  // translators: 1st variable is for E or W, 2nd and 3rd for the longitude
+  return g_strdup_printf(_("%1$s %2$03d° %3$06.3f'"), c, (int)integral, fractional*60.0);
 }
 
 gchar *dt_util_elevation_str(float elevation)
@@ -505,7 +505,8 @@ gchar *dt_util_elevation_str(float elevation)
     c = OSD_ELEVATION_BSL;
   }
 
-  return g_strdup_printf("%.2f %s %s", elevation, _("m"), _(c));
+  // translators: 1st variable is for the elevation, 2nd for "above/below sea level"
+  return g_strdup_printf(_("%1$.2f m %2$s"), elevation, _(c));
 }
 
 /* a few helper functions inspired by
