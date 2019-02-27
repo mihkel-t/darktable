@@ -145,7 +145,7 @@ else
 static const char* _image_get_delete_button_tooltip()
 {
 if (dt_conf_get_bool("send_to_trash"))
-  return _("send file to trash");
+  return _("send to trash");
 else
   return _("physically delete from disk");
 }
