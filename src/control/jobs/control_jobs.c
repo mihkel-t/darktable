@@ -118,7 +118,7 @@ static void dt_control_image_enumerator_job_selected_init(dt_control_image_enume
 static int32_t _generic_dt_control_fileop_images_job_run(dt_job_t *job,
                                                          int32_t (*fileop_callback)(const int32_t,
                                                                                     const int32_t),
-                                                         const char *desc, const char *desc_pl)
+                                                         const int8_t copy)
 {
   dt_control_image_enumerator_t *params = (dt_control_image_enumerator_t *)dt_control_job_get_params(job);
   GList *t = params->index;
@@ -127,7 +127,11 @@ static int32_t _generic_dt_control_fileop_images_job_run(dt_job_t *job,
   double fraction = 0;
   gchar *newdir = (gchar *)params->data;
 
-  g_snprintf(message, sizeof(message), ngettext(desc, desc_pl, total), total);
+  g_snprintf(message, sizeof(message),
+             copy
+             ? ngettext("copying %d image", "copying %d images", total)
+             : ngettext("moving %d image", "moving %d images", total),
+             total);
   dt_control_job_set_progress_message(job, message);
 
   // create new film roll for the destination directory
@@ -137,7 +141,9 @@ static int32_t _generic_dt_control_fileop_images_job_run(dt_job_t *job,
 
   if(film_id <= 0)
   {
-    dt_control_log(_("failed to create film roll for destination directory, aborting move.."));
+    dt_control_log(copy
+                   ? _("failed to create film roll for destination directory, aborting copy..")
+                   : _("failed to create film roll for destination directory, aborting move.."));
     return -1;
   }
 
@@ -1152,14 +1158,12 @@ bail_out:
 
 static int32_t dt_control_move_images_job_run(dt_job_t *job)
 {
-  return _generic_dt_control_fileop_images_job_run(job, &dt_image_move, _("moving %d image"),
-                                                   _("moving %d images"));
+  return _generic_dt_control_fileop_images_job_run(job, &dt_image_move, 0); // 0 = move
 }
 
 static int32_t dt_control_copy_images_job_run(dt_job_t *job)
 {
-  return _generic_dt_control_fileop_images_job_run(job, &dt_image_copy, _("copying %d image"),
-                                                   _("copying %d images"));
+  return _generic_dt_control_fileop_images_job_run(job, &dt_image_copy, 1); // 1 = copy
 }
 
 static int32_t dt_control_local_copy_images_job_run(dt_job_t *job)
