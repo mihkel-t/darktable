@@ -17,12 +17,12 @@
     You should have received a copy of the GNU General Public License
     along with darktable.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "develop/blend.h"
 #include "bauhaus/bauhaus.h"
 #include "common/debug.h"
 #include "common/dtpthread.h"
 #include "common/opencl.h"
 #include "control/control.h"
-#include "develop/blend.h"
 #include "develop/develop.h"
 #include "develop/imageop.h"
 #include "develop/masks.h"
@@ -119,49 +119,8 @@ static const dt_iop_gui_blendif_colorstop_t _gradient_HUE[]
         { 0.830f, { NEUTRAL_GRAY, 0, NEUTRAL_GRAY, 1.0 } },
         { 1.0f, { NEUTRAL_GRAY, 0, 0, 1.0 } } };
 
-
-static void _cairo_paint_colorpicker_set_values(cairo_t *cr, gint x, gint y, gint w, gint h, gint flags, void *data)
-{
-  gint s = (w < h ? w : h);
-  cairo_translate(cr, x + (w / 2.0) - (s / 2.0), y + (h / 2.0) - (s / 2.0));
-  cairo_scale(cr, s, s);
-
-  /* draw pipette */
-
-  cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
-
-  // drop
-  cairo_set_line_width(cr, 0.15);
-  cairo_move_to(cr, 0.08, 1. - 0.01 + 0.05);
-  cairo_line_to(cr, 0.08, 1. - 0.09 + 0.05);
-  cairo_stroke(cr);
-
-  cairo_set_line_width(cr, 0.2);
-  // cross line
-  cairo_move_to(cr, 0.48, 1. - 0.831 + 0.05);
-  cairo_line_to(cr, 0.739, 1. - 0.482 + 0.05);
-  // shaft
-  cairo_move_to(cr, 0.124, 1. - 0.297 + 0.05);
-  cairo_line_to(cr, 0.823, 1. - 0.814 + 0.05);
-  cairo_stroke(cr);
-
-  // end
-  cairo_set_line_width(cr, 0.35);
-  cairo_move_to(cr, 0.823, 1. - 0.814 + 0.05);
-  cairo_line_to(cr, 0.648, 1. - 0.685 + 0.05);
-  cairo_stroke(cr);
-
-  // plus sign
-  cairo_set_line_width(cr, 0.2);
-  cairo_move_to(cr, 0.20, 0.01);
-  cairo_line_to(cr, 0.20, 0.41);
-  cairo_stroke(cr);
-  cairo_move_to(cr, 0.01, 0.20);
-  cairo_line_to(cr, 0.41, 0.20);
-  cairo_stroke(cr);
-}
-
-static void _blendif_scale(dt_iop_colorspace_type_t cst, const float *in, float *out)
+static void _blendif_scale(dt_iop_colorspace_type_t cst, const float *in, float *out,
+                           const dt_iop_order_iccprofile_info_t *work_profile)
 {
   out[0] = out[1] = out[2] = out[3] = out[4] = out[5] = out[6] = out[7] = -1.0f;
 
@@ -173,7 +132,10 @@ static void _blendif_scale(dt_iop_colorspace_type_t cst, const float *in, float 
       out[2] = CLAMP_RANGE((in[2] + 128.0f) / 256.0f, 0.0f, 1.0f);
       break;
     case iop_cs_rgb:
-      out[0] = CLAMP_RANGE(0.3f * in[0] + 0.59f * in[1] + 0.11f * in[2], 0.0f, 1.0f);
+      if(work_profile == NULL)
+        out[0] = CLAMP_RANGE(0.3f * in[0] + 0.59f * in[1] + 0.11f * in[2], 0.0f, 1.0f);
+      else
+        out[0] = CLAMP_RANGE(dt_ioppr_get_rgb_matrix_luminance(in, work_profile), 0.0f, 1.0f);
       out[1] = CLAMP_RANGE(in[0], 0.0f, 1.0f);
       out[2] = CLAMP_RANGE(in[1], 0.0f, 1.0f);
       out[3] = CLAMP_RANGE(in[2], 0.0f, 1.0f);
@@ -193,7 +155,8 @@ static void _blendif_scale(dt_iop_colorspace_type_t cst, const float *in, float 
   }
 }
 
-static void _blendif_cook(dt_iop_colorspace_type_t cst, const float *in, float *out)
+static void _blendif_cook(dt_iop_colorspace_type_t cst, const float *in, float *out,
+                          const dt_iop_order_iccprofile_info_t *const work_profile)
 {
   out[0] = out[1] = out[2] = out[3] = out[4] = out[5] = out[6] = out[7] = -1.0f;
 
@@ -205,7 +168,10 @@ static void _blendif_cook(dt_iop_colorspace_type_t cst, const float *in, float *
       out[2] = in[2];
       break;
     case iop_cs_rgb:
-      out[0] = (0.3f * in[0] + 0.59f * in[1] + 0.11f * in[2]) * 255.0f;
+      if(work_profile == NULL)
+        out[0] = (0.3f * in[0] + 0.59f * in[1] + 0.11f * in[2]) * 255.0f;
+      else
+        out[0] = dt_ioppr_get_rgb_matrix_luminance(in, work_profile) * 255.0f;
       out[1] = in[0] * 255.0f;
       out[2] = in[1] * 255.0f;
       out[3] = in[2] * 255.0f;
@@ -590,10 +556,13 @@ static void _update_gradient_slider(GtkWidget *widget, dt_iop_module_t *module)
     const int cst = (dt_iop_color_picker_get_active_cst(module) == iop_cs_NONE)
                         ? data->csp
                         : dt_iop_color_picker_get_active_cst(module);
-    _blendif_scale(cst, raw_mean, picker_mean);
-    _blendif_scale(cst, raw_min, picker_min);
-    _blendif_scale(cst, raw_max, picker_max);
-    _blendif_cook(cst, raw_mean, cooked);
+    const int use_work_profile = (module->iop_order > dt_ioppr_get_colorin_iop_order(module->dev->iop));
+    const dt_iop_order_iccprofile_info_t *work_profile
+        = (use_work_profile) ? dt_ioppr_get_iop_work_profile_info(module->dev) : NULL;
+    _blendif_scale(cst, raw_mean, picker_mean, work_profile);
+    _blendif_scale(cst, raw_min, picker_min, work_profile);
+    _blendif_scale(cst, raw_max, picker_max, work_profile);
+    _blendif_cook(cst, raw_mean, cooked, work_profile);
 
     snprintf(text, sizeof(text), "(%.1f)", cooked[data->tab]);
 
@@ -1053,9 +1022,12 @@ static void _iop_color_picker_apply(struct dt_iop_module_t *module)
     const int cst = (dt_iop_color_picker_get_active_cst(module) == iop_cs_NONE)
                         ? data->csp
                         : dt_iop_color_picker_get_active_cst(module);
-    _blendif_scale(cst, raw_mean, picker_mean);
-    _blendif_scale(cst, raw_min, picker_min);
-    _blendif_scale(cst, raw_max, picker_max);
+    const int use_work_profile = (module->iop_order > dt_ioppr_get_colorin_iop_order(module->dev->iop));
+    const dt_iop_order_iccprofile_info_t *work_profile
+        = (use_work_profile) ? dt_ioppr_get_iop_work_profile_info(module->dev) : NULL;
+    _blendif_scale(cst, raw_mean, picker_mean, work_profile);
+    _blendif_scale(cst, raw_min, picker_min, work_profile);
+    _blendif_scale(cst, raw_max, picker_max, work_profile);
 
     const float feather = 0.01f;
 
@@ -1548,8 +1520,8 @@ void dt_iop_gui_init_blendif(GtkBox *blendw, dt_iop_module_t *module)
     gtk_widget_set_tooltip_text(bd->colorpicker, _("pick GUI color from image\nctrl+click to select an area"));
     gtk_widget_set_size_request(GTK_WIDGET(bd->colorpicker), bs, bs);
 
-    bd->colorpicker_set_values
-        = dtgtk_togglebutton_new(_cairo_paint_colorpicker_set_values, CPF_STYLE_FLAT | CPF_DO_NOT_USE_BORDER, NULL);
+    bd->colorpicker_set_values = dtgtk_togglebutton_new(dtgtk_cairo_paint_colorpicker_set_values,
+                                                        CPF_STYLE_FLAT | CPF_DO_NOT_USE_BORDER, NULL);
     gtk_widget_set_tooltip_text(bd->colorpicker_set_values, _("set the range based on an area from the image\n"
         "click+drag to use the input image\nctrl+click + drag to use the output image"));
     gtk_widget_set_size_request(GTK_WIDGET(bd->colorpicker_set_values), bs, bs);

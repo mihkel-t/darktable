@@ -3187,9 +3187,15 @@ static uint64_t get_lines_hash(const dt_iop_ashift_line_t *lines, const int line
   for(int n = 0; n < lines_count; n++)
   {
     float v[4] = { lines[n].p1[0], lines[n].p1[1], lines[n].p2[0], lines[n].p2[1] };
+    union {
+        float f;
+        uint32_t u;
+    } x;
 
-    for(int i = 0; i < 4; i++)
-      hash = ((hash << 5) + hash) ^ ((uint32_t *)v)[i];
+    for(size_t i = 0; i < 4; i++) {
+      x.f = v[i];
+      hash = ((hash << 5) + hash) ^ x.u;
+    }
   }
   return hash;
 }
@@ -3403,7 +3409,7 @@ void gui_post_expose(struct dt_iop_module_t *self, cairo_t *cr, int32_t width, i
                           {   ixo + iwd,  iyo       } };
 
     // convert coordinates of corners to coordinates of this module's output
-    if(call_distort_transform(self->dev, self->dev->preview_pipe, self, (float *)V, 4))
+    if(!call_distort_transform(self->dev, self->dev->preview_pipe, self, (float *)V, 4))
       return;
 
     // get x/y-offset as well as width and height of output buffer
